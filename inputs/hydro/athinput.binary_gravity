@@ -1,0 +1,89 @@
+<comment>
+problem   = Rotating frame test problem: viewing a static object from a moving frame
+configure_MAC = --prob=globAccDisk-test-binary_gravity -hdf5  --hdf5_path=/usr/local/Cellar/hdf5/1.10.3 -mpi --flux=roe --eos=adiabatic --coord=cylindrical
+ --eos=adiabatic
+ --coord=cylindrical/spherical_polar
+comment = There seems to be a bug in Mac hdf5 configuration, it fails after saving ~250 files.
+configure_PERSEUS = --prob=globAccDisk -mpi -hdf5 --cxx=icc --flux=roe
+ --eos=adiabatic
+ --coord=cylindrical/spherical_polar
+
+<job>
+problem_id = globAccDisk-test-rotating_barycenter   # problem ID: basename of output filenames
+
+<output1>
+file_type  = hdf5           # Binary data dump
+variable   = prim           # variables to be output
+ghost_zones = true
+dt         = 1.0e-1 # 0.78539816339  # = pi/4, time increment between outputs
+
+<time>
+cfl_number = 0.3            # The Courant, Friedrichs, & Lewy (CFL) Number
+nlim       = -1             # cycle limit
+tlim       = 2.5  # >~ orbital period
+
+<mesh>
+nx1        = 32             # Number of zones in X1-direction
+x1min      = 0.5           # minimum value of X1
+x1max      = 1.0           # maximum value of X1
+ix1_bc     = reflecting        # inner-X1 boundary flag
+ox1_bc     = reflecting        # outer-X1 boundary flag
+
+# CYLINDRICAL:
+
+nx2        = 64            # Number of zones in X3-direction
+x2min      = 0.0            # minimum value of X3
+x2max      = 6.2831853072   # =2pi maximum value of X3
+ix2_bc     = periodic       # inner-X3 boundary flag
+ox2_bc     = periodic       # outer-X3 boundary flag
+
+nx3        = 16            # Number of zones in X3-direction
+x3min      = -0.5         # minimum value of X3
+x3max      = 0.5          # maximum value of X3
+ix3_bc     = reflecting       # inner-X3 boundary flag
+ox3_bc     = reflecting       # outer-X3 boundary flag
+
+# SPHERICAL_POLAR:
+
+#nx2        = 32              # Number of zones in X2-direction
+#x2min      = 0.78539816339   # =pi/2-pi/6 minimum value of X2
+#x2max      = 2.35619449019  # =pi/2+pi/6 maximum value of X2
+#ix2_bc     = reflecting     # inner-X2 boundary flag
+#ox2_bc     = reflecting     # outer-X2 boundary flag
+
+#nx3        = 32            # Number of zones in X3-direction
+#x3min      = 0.0            # minimum value of X3
+#x3max      = 6.2831853072   # =2pi maximum value of X3
+#ix3_bc     = periodic       # inner-X3 boundary flag
+#ox3_bc     = periodic       # outer-X3 boundary flag
+
+<meshblock>
+nx1 = 16 
+nx2 = 16
+nx3 = 16
+
+<hydro>
+gamma = 1.1                  # gamma = C_p/C_v
+dfloor = 1.0e-4
+pfloor = 1.0e-4
+
+<problem>
+stratified = 1              # 0: unstrafitied, 1: stratified
+binary_component = 0        # 0: only primary gravity ON, 1: only secondary gravity ON
+GM1     = 1.0               # GM of the primary (note: GM1 + GM2 = 1)
+rho = 1.                    # ring density
+press = 1.0e-2              # pressure in the box
+
+rho0 = 1.0e-2               # ambient medium density
+
+# for stratified binary_component=1 tests: inclined disks
+inclination = 0.3
+position_angle = 1.0
+ang_dist_max = 0.2
+
+# for binary_component=2 tests: tracking objects falling in
+obj_r0 = 0.7
+obj_phi0 = 0.2
+obj_z0 = 0.2
+obj_size = 0.15
+
