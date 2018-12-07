@@ -30,4 +30,4 @@ Again, G(M1+M2) = 1, where GM1 is set in pmb->ruser_meshblock_data[0]\(0\).
 
 Note:
 
- - One can only enroll a single function with EnrollUserExplicitSourceFunction(). If there are multiple functions handling source terms (e.g., two for primary and secondary gravity, one for rotating frame), they need to be called from a wrapper function, and then EnrollUserExplicitSourceFunction() should be given that wrapper function as argument.
+ - At the time I was working on this code, one could only enroll a single function with EnrollUserExplicitSourceFunction(). If there are multiple functions handling source terms (e.g., two for primary and secondary gravity, one for rotating frame), they may need to be called from a wrapper function, and then EnrollUserExplicitSourceFunction() should be given that wrapper function as argument.
