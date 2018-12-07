@@ -8,7 +8,7 @@ Athena++ radiation MHD code
 
 Additions: rotating_frame.
 
-Comments for the rotation src terms:
+Comments regarding the rotation src terms:
 
 The source terms are handled in src/pgen/globAccDisk-src-rotating_barycenter.hpp. There's a simple testing problem generator in src/pgen/globAccDisk-test-rotating_barycenter.cpp (it creates a sphere and rotates the frame to see if it behaves as expected) and an example input file for it in inputs/hydro/athinput.rotating_frame.
 
