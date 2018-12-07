@@ -1,0 +1,58 @@
+<comment>
+problem   = Rotating frame test problem: viewing a static object from a moving frame
+configure_MAC = --prob=globAccDisk-test-rotating_barycenter -hdf5  --hdf5_path=/usr/local/Cellar/hdf5/1.10.4 -mpi --flux=roe --eos=adiabatic --coord=cylindrical
+ --eos=adiabatic
+ --coord=cylindrical/spherical_polar
+comment = There seems to be a bug in Mac hdf5 configuration, it fails after saving ~250 files.
+configure_PERSEUS = --prob=globAccDisk -mpi -hdf5 --cxx=icc --flux=roe
+ --eos=adiabatic
+ --coord=cylindrical/spherical_polar
+
+<job>
+problem_id = globAccDisk-test-rotating_barycenter   # problem ID: basename of output filenames
+
+<output1>
+file_type  = hdf5           # Binary data dump
+variable   = prim           # variables to be output
+dt         = 0.78539816339  # = pi/4, time increment between outputs
+
+<time>
+cfl_number = 0.3            # The Courant, Friedrichs, & Lewy (CFL) Number
+nlim       = -1             # cycle limit
+tlim       = 6.28318530718  # = 2pi, orbital period
+
+<mesh>
+nx1        = 32             # Number of zones in X1-direction
+x1min      = 0.02           # minimum value of X1
+x1max      = 0.62           # maximum value of X1
+ix1_bc     = outflow        # inner-X1 boundary flag
+ox1_bc     = outflow        # outer-X1 boundary flag
+
+nx2        = 64             # Number of zones in X2-direction
+x2min      = 0.0            # minimum value of X2
+x2max      = 6.2831853072   # =2pi maximum value of X2
+ix2_bc     = periodic       # inner-X2 boundary flag
+ox2_bc     = periodic       # outer-X2 boundary flag
+
+nx3        = 1              # Number of zones in X3-direction
+x3min      = -0.3          # minimum value of X3
+x3max      = 0.3           # maximum value of X3
+ix3_bc     = periodic       # inner-X3 boundary flag
+ox3_bc     = periodic       # outer-X3 boundary flag
+
+<meshblock>
+nx1 = 16 
+nx2 = 16 
+nx3 = 8
+
+<hydro>
+gamma = 1.1                  # gamma = C_p/C_v
+
+<problem>
+GM1     = 1.0                # GM of the primary (note: GM1+GM2 = 1, r_bary = 1-GM1)
+rho0 = 1.0                   # ambient medium density
+rho1 = 10.                   # object's density
+press = 0.1                  # pressure within the box (constant)
+obj_radius = 0.0             # radius of the center of the object
+obj_phi0 = 0.0               # initial azimuth of the object's center
+obj_size = 0.1               # radius of the sphere itself
