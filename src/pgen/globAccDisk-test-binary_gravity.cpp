@@ -23,7 +23,7 @@
 //  functions in this file.  Called in Mesh constructor.
 //========================================================================================
 
-void __attribute__((weak)) Mesh::InitUserMeshData(ParameterInput *pin) {
+void Mesh::InitUserMeshData(ParameterInput *pin) {
   
   if (pin->GetInteger("problem", "binary_component") == 0) { // the primary
     if (pin->GetInteger("problem", "stratified") == 0)
@@ -55,7 +55,7 @@ void __attribute__((weak)) Mesh::InitUserMeshData(ParameterInput *pin) {
 //  Called in MeshBlock constructor before ProblemGenerator.
 //========================================================================================
 
-void __attribute__((weak)) MeshBlock::InitUserMeshBlockData(ParameterInput *pin) {
+void MeshBlock::InitUserMeshBlockData(ParameterInput *pin) {
   
   AllocateRealUserMeshBlockDataField(1);
   ruser_meshblock_data[0].NewAthenaArray(1);
@@ -69,7 +69,7 @@ void __attribute__((weak)) MeshBlock::InitUserMeshBlockData(ParameterInput *pin)
 //  \brief Should be used to set initial conditions.
 //========================================================================================
 
-void __attribute__((weak)) MeshBlock::ProblemGenerator(ParameterInput *pin) {
+void MeshBlock::ProblemGenerator(ParameterInput *pin) {
 
   Real GM1 = pin->GetReal("problem", "GM1");
   Real GM2 = 1. - GM1;
@@ -230,7 +230,7 @@ void __attribute__((weak)) MeshBlock::ProblemGenerator(ParameterInput *pin) {
 //  \brief Function called once every time step for user-defined work.
 //========================================================================================
 
-void __attribute__((weak)) MeshBlock::UserWorkInLoop(void) {
+void MeshBlock::UserWorkInLoop(void) {
   // do nothing
   return;
 }
@@ -240,7 +240,7 @@ void __attribute__((weak)) MeshBlock::UserWorkInLoop(void) {
 //  \brief Function called before generating output files
 //========================================================================================
 
-void __attribute__((weak)) MeshBlock::UserWorkBeforeOutput(ParameterInput *pin) {
+void MeshBlock::UserWorkBeforeOutput(ParameterInput *pin) {
   // do nothing
   return;
 }
@@ -250,7 +250,7 @@ void __attribute__((weak)) MeshBlock::UserWorkBeforeOutput(ParameterInput *pin) 
 //  \brief Function called after main loop is finished for user-defined work.
 //========================================================================================
 
-void __attribute__((weak)) Mesh::UserWorkAfterLoop(ParameterInput *pin) {
+void Mesh::UserWorkAfterLoop(ParameterInput *pin) {
   // do nothing
   return;
 }
