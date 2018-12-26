@@ -28,7 +28,7 @@ void Boundary_ox2 (MeshBlock *pmb, Coordinates *pco, AthenaArray<Real> &prim, Fa
 //  functions in this file.  Called in Mesh constructor.
 //========================================================================================
 
-void __attribute__((weak)) Mesh::InitUserMeshData(ParameterInput *pin) {
+void Mesh::InitUserMeshData(ParameterInput *pin) {
   
   if (COORDINATE_SYSTEM == "cylindrical")
     EnrollUserExplicitSourceFunction(RotatingFrame_barycenter_cylindrical);
@@ -54,7 +54,7 @@ void __attribute__((weak)) Mesh::InitUserMeshData(ParameterInput *pin) {
 //  Called in MeshBlock constructor before ProblemGenerator.
 //========================================================================================
 
-void __attribute__((weak)) MeshBlock::InitUserMeshBlockData(ParameterInput *pin) {
+void MeshBlock::InitUserMeshBlockData(ParameterInput *pin) {
   
   AllocateRealUserMeshBlockDataField(1);
   #if NON_BAROTROPIC_EOS == 1
@@ -77,7 +77,7 @@ void __attribute__((weak)) MeshBlock::InitUserMeshBlockData(ParameterInput *pin)
 //  \brief Should be used to set initial conditions.
 //========================================================================================
 
-void __attribute__((weak)) MeshBlock::ProblemGenerator(ParameterInput *pin) {
+void MeshBlock::ProblemGenerator(ParameterInput *pin) {
 
   Real rho0 = pin->GetReal("problem", "rho0"); // ambient medium density
   Real rho1 = pin->GetReal("problem", "rho1"); // density of the object
@@ -171,7 +171,7 @@ void __attribute__((weak)) MeshBlock::ProblemGenerator(ParameterInput *pin) {
 //  \brief Function called once every time step for user-defined work.
 //========================================================================================
 
-void __attribute__((weak)) MeshBlock::UserWorkInLoop(void) {
+void MeshBlock::UserWorkInLoop(void) {
   // do nothing
   return;
 }
@@ -181,7 +181,7 @@ void __attribute__((weak)) MeshBlock::UserWorkInLoop(void) {
 //  \brief Function called before generating output files
 //========================================================================================
 
-void __attribute__((weak)) MeshBlock::UserWorkBeforeOutput(ParameterInput *pin) {
+void MeshBlock::UserWorkBeforeOutput(ParameterInput *pin) {
   // do nothing
   return;
 }
@@ -191,7 +191,7 @@ void __attribute__((weak)) MeshBlock::UserWorkBeforeOutput(ParameterInput *pin) 
 //  \brief Function called after main loop is finished for user-defined work.
 //========================================================================================
 
-void __attribute__((weak)) Mesh::UserWorkAfterLoop(ParameterInput *pin) {
+void Mesh::UserWorkAfterLoop(ParameterInput *pin) {
   // do nothing
   return;
 }
